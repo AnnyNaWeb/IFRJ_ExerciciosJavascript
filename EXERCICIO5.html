@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang=”pt-br”>
+<head>
+<meta charset=”UTF-8”>
+
+<title>LISTA DE EXERCICIOS</title>
+
+<script>
+var inteiros = [];
+var verifica = true;
+
+
+for(var i =0; i < 10; i++){
+  
+   inteiros[i] = prompt("Insira um numero inteiro para a posição ", +(i+1), " :");
+   while (isNaN(inteiros[i])) {  
+       alert("Digite apenas números!");  
+       inteiros[i] = prompt("Insira um numero inteiro para a posição ", +(i+1), " :");
+    }
+    
+}
+var max = inteiros.reduce(function(a,b) {
+  return Math.max(a,b);
+});
+var min = inteiros.reduce(function(a,b) {
+  return Math.min(a,b);
+});
+
+inteiros.sort(function(a,b){
+  return a-b;
+});
+console.log("Crescente", inteiros);
+inteiros.sort(function(a,b){
+  return b-a;
+});
+console.log("Decrescente", inteiros);
+console.log("Maior Numero: ", max,", menor numero: ", min);
+function apertar(){
+    context=document.getElementById('x').innerHTML ='Apertou'
+}
+
+</script>
+</head>
+<body>
+Olá, Mundo!
+
+<button onclick="apertar()" id='x'>Nao Apertou</button>
+
+
+</body>
+</html>

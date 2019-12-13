@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html lang=”pt-br”>
+<head>
+<meta charset=”UTF-8”>
+
+<title>LISTA DE EXERCICIOS</title>
+<body >
+
+    <canvas id="minhaTela"  style="border:1px solid #000000;">
+    
+    </canvas>
+<script>
+ //Exercicio 13
+var canvas=document.getElementById('minhaTela');
+        ctx=canvas.getContext('2d');
+        canvas.width = 800;
+        canvas.height = 600;
+        var start = (new Date()).getTime();
+        var current;
+        var currentFrame =0.;
+        var numFrames = 6;
+        lisaPlayer = new Image();
+        lisaPlayer.w = 75;
+        lisaPlayer.h = 100;
+        var speedLisa = 6;
+        for (var i = 0; i < numFrames; i++)
+	    {
+	        lisaPlayer[i] = new Image();
+		    lisaPlayer[i].src = "img/" + (i+1) + ".png";
+	    }	
+
+       
+   
+var Retangulo = class Retangulo{
+    retangulo(x, y, width, height){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+
+    }
+   draw(){
+        ctx.fillStyle='red';
+        ctx.fillRect(30, 30, 150, 80);
+        
+   }
+
+  };
+   
+   var Player = class Player extends Retangulo{
+        player(health, bullets){
+            this.health = health;
+            this.bullets = bullets;
+        }
+        draw(){
+            ctx.fillStyle='pink';
+            ctx.fillRect(30, 150, 80, 80);
+        }
+   };
+   var Pictures = class Pictures{
+        pictures (img, x, y, w, h){
+            this.img = img;
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h; 
+        }
+        drawImage(img, x, y, w, h){
+            ctx.drawImage(img, x, y, w, h);
+        }
+   
+    };
+
+
+   
+
+    function desenha(){
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+       const retangulo = new Retangulo();
+       retangulo.draw();
+       const player = new Player();
+       player.draw();
+       lisa = new Pictures();
+       lisa.drawImage(lisaPlayer[Math.floor(currentFrame)%numFrames], 
+        30, 250, lisaPlayer.w, lisaPlayer.h);
+       
+  
+       
+    }
+    function deltaTime()
+	{
+        
+		current = (new Date()).getTime();
+		 elapsed = current - start;
+		start = current;
+		var delta = elapsed / 1000.;			
+		return delta;
+	}	
+    function update(){
+         
+        var delta = deltaTime();
+        currentFrame += delta*8;
+
+    }
+    function loop()
+    {
+        desenha();
+        update();
+        
+        setTimeout(loop,30);
+    }
+
+    
+    
+    
+    loop();
+       
+    
+  //475/6
+
+
+</script>
+</head>
+
+
+</body>
+</html>

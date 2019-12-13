@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<html lang=”pt-br”>
+<head>
+<meta charset=”UTF-8”>
+
+<title>LISTA DE EXERCICIOS</title>
+<body >
+
+    <canvas id="minhaTela"  style="border:1px solid #000000;">
+    
+    </canvas>
+<script>
+ //Exercicio 14
+var canvas=document.getElementById('minhaTela');
+        ctx=canvas.getContext('2d');
+        canvas.width = 800;
+        canvas.height = 600;
+        var start = (new Date()).getTime();
+        var current;
+        var perseguicao = false;
+        var currentFrame =0.;
+        var numFrames = 6;
+        lisaPlayer = new Image();
+        lisaPlayer.w = 75;
+        lisaPlayer.h = 100;
+        lisax = 100;
+        lisay=500;
+    
+        var speedLisax = 6;
+        var speedLisay = 4;
+        pikaEnemy = new Image();
+        pikaEnemy.w = 155;
+        pikaEnemy.h = 155;
+        inimigox = 200;
+       inimigoy = 10;
+        var speedEnemy = 2;
+        var numFramesEnemy = 5;
+        for (var i = 0; i < numFrames; i++)
+	    {
+	        lisaPlayer[i] = new Image();
+		    lisaPlayer[i].src = "img/" + (i+1) + ".png";
+	    }	
+        for (var i = 0; i < numFramesEnemy; i++)
+	    {
+	        pikaEnemy[i] = new Image();
+		    pikaEnemy[i].src = "img/Enemy" + (i+1) + ".png";
+	    }
+       
+   
+var Retangulo = class Retangulo{
+    retangulo(x, y, width, height){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+
+    }
+   draw(){
+        ctx.fillStyle='red';
+        ctx.fillRect(30, 30, 150, 80);
+        
+   }
+
+  };
+   
+   var Player = class Player extends Retangulo{
+        player(health, bullets){
+            this.health = health;
+            this.bullets = bullets;
+        }
+        draw(){
+            ctx.fillStyle='pink';
+            ctx.fillRect(30, 150, 80, 80);
+        }
+   };
+   var Pictures = class Pictures{
+        pictures (img, x, y, w, h){
+            this.img = img;
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h; 
+        }
+        drawImage(img, x, y, w, h){
+            ctx.drawImage(img, x, y, w, h);
+        }
+   
+    };
+    var Enemy = class Enemy extends Pictures{
+        enemy(speedEnemy){
+            this.speedEnemy = speedEnemy;
+
+        
+
+        }
+        drawImage(img, x, y, w, h){
+            ctx.drawImage(img, x, y, w, h);
+        }
+        persegue(target, x, y){
+            
+            
+            perseguicao = true;
+          
+            seguePlayer();
+            
+        }
+
+    }
+   
+
+
+   
+
+    function desenha(){
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+       const retangulo = new Retangulo();
+       retangulo.draw();
+       const player = new Player();
+       player.draw();
+       lisa = new Pictures();
+       
+       lisa.drawImage(lisaPlayer[Math.floor(currentFrame)%numFrames], 
+        lisax, lisay, lisaPlayer.w, lisaPlayer.h);
+  
+       inimigo = new Enemy();
+       
+       inimigo.drawImage(pikaEnemy[Math.floor(currentFrame)%numFramesEnemy],
+       inimigox, inimigoy, pikaEnemy.w, pikaEnemy.h);
+        
+             inimigo.persegue(lisa, lisax, lisay);
+        
+         
+
+       
+    }
+    function deltaTime()
+	{
+        
+		current = (new Date()).getTime();
+		 elapsed = current - start;
+		start = current;
+		var delta = elapsed / 1000.;			
+		return delta;
+    }	
+    function seguePlayer(){
+        if(perseguicao){
+         
+          lisax += speedLisax;
+          if(lisax >= canvas.width - 75 || lisax < 0){
+
+              speedLisax *= -1;
+          }
+          lisay -= speedLisay;
+          if(lisay >= canvas.height-80 || lisay < 0 ){
+              speedLisay *= -1;
+          }
+          
+               //esquerda 
+                if(inimigox >= lisax ){
+                  inimigox-= speedEnemy;           
+                } 
+                if(inimigox <= lisax){
+                    inimigox += speedEnemy;
+                } 
+                if(inimigoy >= lisay){
+                    inimigoy -=speedEnemy;
+                    if(inimigoy == 0){
+                        inimigoy - 150;
+                    }
+                }
+                if (inimigoy <= lisay){
+                    inimigoy += speedEnemy;
+                    if(inimigoy == canvas.height){
+                        inimigoy +150;
+                    }
+                }
+
+           
+              
+
+
+        }
+    }
+    function update(){
+         
+        var delta = deltaTime();
+        currentFrame += delta*8;
+        
+
+    }
+    function loop()
+    {
+        desenha();
+        update();
+        
+        setTimeout(loop,30);
+    }
+
+    
+    
+    
+    loop();
+       
+    
+  //475/6
+
+
+</script>
+</head>
+
+
+</body>
+</html>

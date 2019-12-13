@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang=”pt-br”>
+<head>
+<meta charset=”UTF-8”>
+
+<title>LISTA DE EXERCICIOS</title>
+
+<script>
+    //Exercicio 6, 7 e 8
+var Retangulo = class Retangulo{
+    retangulo(x, y, width, height){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+
+    }
+   draw(){
+        ctx.fillStyle='red';
+        ctx.fillRect(30, 30, 150, 80);
+        
+   }
+
+  };
+   
+   var Player = class Player extends Retangulo{
+        player(health, bullets){
+            this.health = health;
+            this.bullets = bullets;
+        }
+        draw(){
+            ctx.fillStyle='pink';
+            ctx.fillRect(30, 150, 80, 80);
+        }
+   };
+
+    function desenha(){
+      // ctx.clearRect(0,0,500,500);
+       const retangulo = new Retangulo();
+       retangulo.draw();
+       const player = new Player();
+       player.draw();
+       var img = new Image();
+       img.onload =  function(){
+           
+        ctx.drawImage(img, 0, -226, 708, 532, 30, 250, 150, 150);
+       };
+       img.src = 'img/lisaPlayer.JPG';
+    }
+    function iniciaCanvas(){
+        var canvas=document.getElementById('minhaTela');
+        ctx=canvas.getContext('2d');
+        setInterval(desenha, 10);
+
+    }
+   
+  
+
+
+</script>
+</head>
+<body onload="iniciaCanvas();">
+
+<canvas id="minhaTela" width="800" height="600" style="border:1px solid #000000;">
+
+</canvas>
+
+</body>
+</html>

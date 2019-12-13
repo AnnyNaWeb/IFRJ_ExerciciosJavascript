@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang=”pt-br”>
+<head>
+<meta charset=”UTF-8”>
+
+<title>LISTA DE EXERCICIOS</title>
+
+<script>
+var inteiros = [];
+
+
+for(var i =0; i < 10; i++){
+   inteiros[i] = prompt("Insira um numero inteiro para a posição ", +(i+1), " :");
+   if (isNaN(inteiros[i])) {  
+       alert("Digite apenas números!");  
+       inteiros[i] = prompt("Insira um numero inteiro para a posição ", +(i+1), " :");
+    }
+}
+
+console.log(inteiros);
+function apertar(){
+    context=document.getElementById('x').innerHTML ='Apertou'
+}
+</script>
+</head>
+<body>
+Olá, Mundo!
+
+<button onclick="apertar()" id='x'>Nao Apertou</button>
+
+
+</body>
+</html>
